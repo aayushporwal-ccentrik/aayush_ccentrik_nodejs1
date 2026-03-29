@@ -1,0 +1,151 @@
+_schema-version: 3.3.0
+ID: ZZ_MM_AP_2803
+description: A simple CAP project.
+version: 1.0.0
+modules:
+- name: ZZ_MM_AP_2803-srv
+  type: nodejs
+  path: gen/srv
+  requires:
+  - name: ZZ_MM_AP_2803-auth
+  - name: ZZ_MM_AP_2803-db
+  - name: ZZ_MM_AP_2803-postgres
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+    instances: 1
+  build-parameters:
+    builder: npm-ci
+- name: ZZ_MM_AP_2803-db-deployer
+  type: hdb
+  path: gen/db
+  requires:
+  - name: ZZ_MM_AP_2803-db
+  parameters:
+    buildpack: nodejs_buildpack
+- name: ZZ_MM_AP_2803-postgres-deployer
+  type: nodejs
+  path: gen/pg
+  requires:
+  - name: ZZ_MM_AP_2803-postgres
+  parameters:
+    buildpack: nodejs_buildpack
+    no-route: true
+    no-start: true
+    tasks:
+    - command: npm start
+      name: deploy-to-postgresql
+- name: ZZ_MM_AP_2803
+  type: approuter.nodejs
+  path: app/router
+  requires:
+  - name: srv-api
+    group: destinations
+    properties:
+      forwardAuthToken: true
+      name: srv-api
+      url: ~{srv-url}
+  - name: ZZ_MM_AP_2803-auth
+  - name: ZZ_MM_AP_2803-destination-service
+    group: destinations
+    properties:
+      forwardAuthToken: false
+      name: ui5
+      url: https://ui5.sap.com
+  provides:
+  - name: app-api
+    properties:
+      app-protocol: ${protocol}
+      app-uri: ${default-uri}
+  parameters:
+    disk-quota: 256M
+    keep-existing-routes: true
+    memory: 256M
+- name: ZZ_MM_AP_2803-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: ZZ_MM_AP_2803-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - aayushfrontendmm2803.zip
+      name: aayushfrontendmm2803
+      target-path: resources/
+- name: aayushfrontendmm2803
+  type: html5
+  path: app/frontend_mm_2803
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: ZZ_MM_AP_2803-auth
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      oauth2-configuration:
+        credential-types:
+        - binding-secret
+        - x509
+        redirect-uris:
+        - https://*~{app-api/app-uri}/**
+      tenant-mode: dedicated
+      xsappname: ZZ_MM_AP_2803-${org}-${space}
+    path: ./xs-security.json
+    service: xsuaa
+    service-plan: application
+  requires:
+  - name: app-api
+- name: ZZ_MM_AP_2803-db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service: hana
+    service-plan: hdi-shared
+- name: ZZ_MM_AP_2803-postgres
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: postgresql-db
+    service-plan: development
+- name: ZZ_MM_AP_2803-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: ZZ_MM_AP_2803-html5-service
+    service-plan: app-host
+- name: ZZ_MM_AP_2803-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: false
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: ZZ_MM_AP_2803-destination-service
+    service-plan: lite
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+  - builder: custom
+    commands:
+    - npm ci
+    - npx cds build --production
