@@ -24,15 +24,16 @@ module.exports = cds.service.impl(async function()
     })
 
     this.on('submitPO', async(req) => {
-        const{ poId } = req.data
+        const{ poID } = req.data
         
         return `PO ${ poId } submitted successfully`
     })
 
     this.after('READ', PurchaseOrders,async(results) => {
-        results.forEach(po => {
-            if (po.status === 'DRAFT')po.status = 'Approval Pending'
-        })
+    return results.map(po => {
+        if (po.status === 'DRAFT') po.status = 'Approval Pending'
+        return po
+})
     })
 })
 
