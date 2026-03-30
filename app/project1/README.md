@@ -1,15 +1,15 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Sun Mar 29 2026 08:29:58 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Mon Mar 30 2026 07:46:47 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>SAP Fiori Application Generator|
 |**App Generator Version**<br>1.22.0|
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Template Used**<br>List Report Page V4|
 |**Service Type**<br>Local CAP|
 |**Service URL**<br>http://localhost:4004/po/|
-|**Module Name**<br>frontend_mm_2803|
-|**Application Title**<br>Purchase Order |
+|**Module Name**<br>project1|
+|**Application Title**<br>Purchase_Order|
 |**Namespace**<br>aayush|
 |**UI5 Theme**<br>sap_horizon|
 |**UI5 Version**<br>1.146.0|
@@ -18,7 +18,7 @@
 |**Main Entity**<br>PurchaseOrders|
 |**Navigation Entity**<br>items|
 
-## frontend_mm_2803
+## project1
 
 An SAP Fiori application.
 
@@ -26,7 +26,7 @@ An SAP Fiori application.
 
 -   This app has been generated using the SAP Fiori tools - App Generator, as part of the SAP Fiori tools suite.  To launch the generated app, start your CAP project:  and navigate to the following location in your browser:
 
-http://localhost:4004/frontend_mm_2803/webapp/index.html
+http://localhost:4004/aayush.project1/index.html
 
 #### Pre-requisites:
 

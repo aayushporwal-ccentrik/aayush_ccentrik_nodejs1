@@ -1,4 +1,4 @@
-ID,up__ID,lineItem,material,materialGroup,plant,storageLocation,quantity,uom,unitPrice,priceUnit,createdAt,createdBy,modifiedAt,modifiedBy
+ID,up__ID,EBELP,MATNR,MATKL,WERKS,LGORT,MENGE,MEINS,NETPR,PEINH,createdAt,createdBy,modifiedAt,modifiedBy
 a2000001,f47ac10b-58cc-4372-a567-0e02b2c3d001,10,MAT-LAPTOP,ELEC,1000,0001,2.000,EA,30000.00,1,2026-01-10T08:00:00Z,Rahul,2026-01-10T08:00:00Z,Priya
 a2000002,f47ac10b-58cc-4372-a567-0e02b2c3d001,20,MAT-MOUSE,ELEC,1000,0001,5.000,EA,500.00,1,2026-01-10T08:00:00Z,Rahul,2026-01-10T08:00:00Z,Priya
 

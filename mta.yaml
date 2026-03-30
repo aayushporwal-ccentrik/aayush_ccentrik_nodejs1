@@ -78,9 +78,23 @@ modules:
       - aayushfrontendmm2803.zip
       name: aayushfrontendmm2803
       target-path: resources/
+    - artifacts:
+      - aayushproject1.zip
+      name: aayushproject1
+      target-path: resources/
 - name: aayushfrontendmm2803
   type: html5
   path: app/frontend_mm_2803
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: aayushproject1
+  type: html5
+  path: app/project1
   build-parameters:
     build-result: dist
     builder: custom

@@ -1,7 +1,7 @@
 {
   "_version": "1.83.0",
   "sap.app": {
-    "id": "aayush.frontendmm2803",
+    "id": "aayush.project1",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -13,7 +13,7 @@
     "sourceTemplate": {
       "id": "@sap/generator-fiori:lrop",
       "version": "1.22.0",
-      "toolsId": "6d19269c-7f86-488b-b11f-e1569c3295b5"
+      "toolsId": "cb80da29-0469-44cd-bea6-fff05db0c1f5"
     },
     "dataSources": {
       "mainService": {
@@ -60,7 +60,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "aayush.frontendmm2803.i18n.i18n"
+          "bundleName": "aayush.project1.i18n.i18n"
         }
       },
       "": {
@@ -95,8 +95,8 @@
         },
         {
           "pattern": "PurchaseOrders({key})/items({key2}):?query:",
-          "name": "POItemsObjectPage",
-          "target": "POItemsObjectPage"
+          "name": "PurchaseOrderItemObjectPage",
+          "target": "PurchaseOrderItemObjectPage"
         }
       ],
       "targets": {
@@ -136,16 +136,16 @@
               "navigation": {
                 "items": {
                   "detail": {
-                    "route": "POItemsObjectPage"
+                    "route": "PurchaseOrderItemObjectPage"
                   }
                 }
               }
             }
           }
         },
-        "POItemsObjectPage": {
+        "PurchaseOrderItemObjectPage": {
           "type": "Component",
-          "id": "POItemsObjectPage",
+          "id": "PurchaseOrderItemObjectPage",
           "name": "sap.fe.templates.ObjectPage",
           "options": {
             "settings": {
