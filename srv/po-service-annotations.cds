@@ -1,10 +1,10 @@
-using POService from './po-Service';
+using POService from './po-service';
 
 annotate POService.PurchaseOrders with @(
     odata.draft.enabled
 );
 
-annotate com.team.po.PurchaseOrderItem with @(
+annotate com.project.po.PurchaseOrderItem with @(
     UI: {
         LineItem: [
             { $Type: 'UI.DataField', Value: lineItem,  Label: 'Line'       },
